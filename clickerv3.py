@@ -1,4 +1,4 @@
-# Clicker v2
+# Clicker v3
 import tkinter as tk
 from tkinter import IntVar
 from tkinter.constants import NUMERIC
@@ -16,16 +16,28 @@ def Background():
     else:
         window["bg"] = "grey"
 
+def Hover(e):
+    window["bg"] = "yellow"
+
+def HoverLeave(e):
+    Background()
+
 def Up():
     global number
     number.set(number.get() + 1)
     Label.configure(textvariable=number)
     Background()
 
-def Hover(e):
-    window["bg"] = "yellow"
+def UpTwo(e):
+    global number
+    number.set(number.get() * 3)
+    Label.configure(textvariable=number)
+    Background()
 
-def HoverLeave(e):
+def DownTwo(e):
+    global number
+    number.set(number.get() / 3)
+    Label.configure(textvariable=number)
     Background()
 
 def Down():
@@ -35,7 +47,7 @@ def Down():
     Background()
 
 window = tk.Tk()
-window.title("Clicker v1")
+window.title("Clicker v3")
 window.geometry("250x200")
 window["bg"] = "grey"
 window.eval('tk::PlaceWindow . center') # optioneel (puur om het scherm in het midden te krijgen)
@@ -45,6 +57,8 @@ Label = tk.Label(bg="white",width=20, textvariable=number)
 buttonDown = tk.Button(bg="white",width=20, text="Down", bd=0, command=Down)
 Label.bind("<Enter>", Hover)
 Label.bind("<Leave>", HoverLeave)
+buttonUp.bind("<Double-Button-1>", UpTwo)
+buttonDown.bind("<Double-Button-1>", DownTwo)
 buttonUp.place(y=45,x=50)
 Label.place(y=100,x=50)
 buttonDown.place(y=150,x=50)
